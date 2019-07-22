@@ -1,0 +1,10 @@
+<h1>Gmail</h1>
+<%# Show the user's labels %>
+    <% result = @service.list_user_labels @user_id %> 
+    <p>Labels:</p>
+    <p><%= No labels found if result.labels.empty? %>
+
+    <% result.labels.each do |label| %>
+    <p><%="- #{label.name}"  %>
+    <% end %>
+    

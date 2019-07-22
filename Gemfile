@@ -15,6 +15,7 @@ gem 'sassc-rails'
 gem 'uglifier'
 #gem 'simple_form'
 gem 'bootstrap', '~> 4.3.1'
+gem 'google-api-client', '~> 0.30.7'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
