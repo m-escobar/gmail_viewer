@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
-  root to: 'gmail#main'
+  root to: 'gmail#index'
 
-  get 'index', to: 'gmail#mail'
-  # get 'about', to: 'static#about'
-  # get 'services', to: 'static#services'
-  # get 'products', to: 'static#products'
-  # get 'contact', to: 'static#contact'
+   get 'index', to: 'gmail#index'
+   get 'show/id', to: 'gmail#show'
 end
