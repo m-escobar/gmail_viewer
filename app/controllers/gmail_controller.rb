@@ -4,7 +4,7 @@ require "googleauth/stores/file_token_store"
 require "fileutils"
 
 class GmailController < ApplicationController
-    def main
+    def index
         @oob_uri = "urn:ietf:wg:oauth:2.0:oob".freeze
         @application_name = "Gmail Viewer".freeze
         @credentials_path = "credentials.json".freeze
@@ -27,6 +27,11 @@ class GmailController < ApplicationController
     # the user's default browser will be launched to approve the request.
     #
     # @return [Google::Auth::UserRefreshCredentials] OAuth2 credentials
+
+    def show
+        raise
+        id = params[:id]
+    end
 
     def authorize
         client_id = Google::Auth::ClientId.from_file @credentials_path
