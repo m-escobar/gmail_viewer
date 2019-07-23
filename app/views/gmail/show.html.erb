@@ -9,10 +9,23 @@
         <%@subject = obj['value'] if obj['name'] =="Subject" %>
         <%from = obj['value'] if obj['name'] =="From" %>
     <% end %>
+    
+    <% if my_msg['payload']['parts'].nil? then %>
+        <% if my_msg['payload']['body']['data'].nil? %>
+            <% my_body = my_msg['payload']['parts'][0]['parts'][0]['body']['data'] %>
+        <% else %>
+            <% my_body = my_msg['payload']['body']['data']         %>
+        <% end %>
+    <% elsif my_msg['payload']['parts'][1]['body']['data'].nil? %>
+        <% my_body = "Ops.. Message not found... Sorry!"  %>
+    <% else %>
+        <% my_body = my_msg['payload']['parts'][1]['body']['data']%>
+    <% end %>
+
     <p><strong>Subject: <a href="<%="#{my_msg['id']}"%>"><%="#{@subject}"%></a></strong><br>
     <p>From: <strong><%= "#{from}"%></strong></p>
     <p>Message: <%="#{my_msg['snippet']}" %></p>
     <%= link_to "Voltar", index_path, class: "ml-2 btn btn-primary" %>
-<hr>
-    <%= raw "#{my_msg['payload']['parts'][1]['body']['data'].force_encoding("UTF-8")}" %>
+    <hr>
+    <%= raw my_body.force_encoding("UTF-8") %>
 </div>
