@@ -7,6 +7,7 @@ class GmailController < ApplicationController
     before_action :set_user, only: [:index, :show]
 
     def index
+        @msg_list = @service.list_user_messages @user_id
     end
     ##
     # Ensure valid credentials, either by restoring from the saved credentials

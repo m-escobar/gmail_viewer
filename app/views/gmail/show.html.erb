@@ -1,20 +1,18 @@
-<h3>Gmail - Message details</h3>
-<br>
-<% @subject=[] %>
-<% from=[] %>
+<div class="msgdetail">
+    <h3>Gmail - Message details</h3>
+    <br>
+    <% @subject=[] %>
+    <% from=[] %>
 
-<% my_msg = @service.get_user_message(@user_id, @msg_id).as_json  %>
-<% my_msg['payload']['headers'].each_with_index do |obj, idx| %>
-    <%@subject = obj['value'] if obj['name'] =="Subject" %>
-    <%from = obj['value'] if obj['name'] =="From" %>
-<% end %>
-<div>
-<p><strong>Subject: <a href="<%="#{my_msg['id']}"%>"><%="#{@subject}"%></a></strong><br>
-<p>From: <strong><%= "#{from}"%></strong></p>
-<p>Message: <%="#{my_msg['snippet']}" %></p>
-<%= link_to "Voltar", index_path, class: "ml-2 btn btn-primary" %>
+    <% my_msg = @service.get_user_message(@user_id, @msg_id).as_json  %>
+    <% my_msg['payload']['headers'].each_with_index do |obj, idx| %>
+        <%@subject = obj['value'] if obj['name'] =="Subject" %>
+        <%from = obj['value'] if obj['name'] =="From" %>
+    <% end %>
+    <p><strong>Subject: <a href="<%="#{my_msg['id']}"%>"><%="#{@subject}"%></a></strong><br>
+    <p>From: <strong><%= "#{from}"%></strong></p>
+    <p>Message: <%="#{my_msg['snippet']}" %></p>
+    <%= link_to "Voltar", index_path, class: "ml-2 btn btn-primary" %>
 <hr>
-</div>
-<div>
-<%= raw "#{my_msg['payload']['parts'][1]['body']['data'].force_encoding("UTF-8")}" %>
+    <%= raw "#{my_msg['payload']['parts'][1]['body']['data'].force_encoding("UTF-8")}" %>
 </div>

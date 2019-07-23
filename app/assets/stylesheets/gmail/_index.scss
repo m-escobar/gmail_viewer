@@ -3,13 +3,13 @@
 
 body {
   font-size: 12px;
-  background-color: white;
+  background-color: darkgray;
 }
 
-.odd {
-  background-color: gray;
-}
-
-.even {
+.msg {
   background-color: lightgray;
+}
+
+.msgdetail {
+  background-color: white;
 }
