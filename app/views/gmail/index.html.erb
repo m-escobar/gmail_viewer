@@ -20,7 +20,7 @@
                         <div class="even">
                 <% end %>
                 <p>From: <strong><%= "#{from}"%></strong><br>
-                Subject: <%= link_to @subject, my_msg['id'] %></p>
+                Subject: <%= link_to @subject, show_mail_path(my_msg['id']), {:style=>'color:#FFFFFF;'} %></p>
                 <p>Message: <%="#{my_msg['snippet']}" %></p>
                 </div>
                 <% @bg_color += 1 %>
