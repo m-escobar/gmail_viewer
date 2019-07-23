@@ -1,28 +1,21 @@
-<h1>Gmail</h1>
+<br>
+<h3>Gmail - Messages index</h3>
 <%# List user's emails %>
-    <% result = @service.list_user_messages @user_id %> 
-    <p>Messages:</p>
-    <p><%= No messages found if result.messages.empty? %>
-
+<h3><%= No messages found if @msg_list.messages.empty? %></h3>
 
 <% @subject=[] %>
 <% from=[] %>
 <% @bg_color = 0 %>
-    <% result.messages.each do |msg| %>
-        <% my_msg = @service.get_user_message(@user_id, msg.id).as_json  %>
-            <% my_msg['payload']['headers'].each_with_index do |obj, idx| %>
-               <%@subject = obj['value'] if obj['name'] =="Subject" %>
-               <%from = obj['value'] if obj['name'] =="From" %>
-            <% end %>
-                <% if @bg_color.odd? then %>
-                        <div class="odd">
-                <% else %>
-                        <div class="even">
-                <% end %>
-                <p>From: <strong><%= "#{from}"%></strong><br>
-                Subject: <%= link_to @subject, show_mail_path(my_msg['id']), {:style=>'color:#FFFFFF;'} %></p>
-                <p>Message: <%="#{my_msg['snippet']}" %></p>
-                </div>
-                <% @bg_color += 1 %>
-    <% end %>
-    
+<% @msg_list.messages.each do |msg| %>
+    <% my_msg = @service.get_user_message(@user_id, msg.id).as_json  %>
+        <% my_msg['payload']['headers'].each_with_index do |obj, idx| %>
+            <%@subject = obj['value'] if obj['name'] =="Subject" %>
+            <%from = obj['value'] if obj['name'] =="From" %>
+        <% end %>
+            <div class="msg">
+            <br>
+            <p>From: <strong><%= "#{from}"%></strong><br>
+            Subject: <%= link_to @subject, show_mail_path(my_msg['id']), {:style=>'color:darkblue;'} %></p>
+            <p>Message: <%="#{my_msg['snippet']}" %></p>
+            </div>
+<% end %>
