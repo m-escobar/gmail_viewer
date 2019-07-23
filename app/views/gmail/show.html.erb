@@ -1,20 +1,20 @@
-<h1>Gmail</h1>
-<%# Show selected email %>
-<h2>Message details</h2>
-    <%# <% result = @service.list_user_messages @user_id %>  
+<h3>Gmail - Message details</h3>
+<br>
+<% @subject=[] %>
+<% from=[] %>
 
-    <% my_msg = @service.get_user_message(@user_id, msg.id).as_json  %>
-        <% my_msg['payload']['headers'].each_with_index do |obj, idx| %>
-            <%@subject = obj['value'] if obj['name'] =="Subject" %>
-            <%from = obj['value'] if obj['name'] =="From" %>
-        <% end %>
-            <% if @bg_color.odd? then %>
-                    <div class="odd">
-            <% else %>
-                    <div class="even">
-            <% end %>
-            <p>From: <strong><%= "#{from}"%></strong></p>
-            <p>Subject: <a href="<%="#{my_msg['id']}"%>"><%="#{@subject}"%></a></p>
-            <p>Message: <%="#{my_msg['snippet']}" %></p>
-            </div>
-            <% @bg_color += 1 %>
+<% my_msg = @service.get_user_message(@user_id, @msg_id).as_json  %>
+<% my_msg['payload']['headers'].each_with_index do |obj, idx| %>
+    <%@subject = obj['value'] if obj['name'] =="Subject" %>
+    <%from = obj['value'] if obj['name'] =="From" %>
+<% end %>
+<div>
+<p><strong>Subject: <a href="<%="#{my_msg['id']}"%>"><%="#{@subject}"%></a></strong><br>
+<p>From: <strong><%= "#{from}"%></strong></p>
+<p>Message: <%="#{my_msg['snippet']}" %></p>
+<%= link_to "Voltar", index_path, class: "ml-2 btn btn-primary" %>
+<hr>
+</div>
+<div>
+<%= raw "#{my_msg['payload']['parts'][1]['body']['data'].force_encoding("UTF-8")}" %>
+</div>
